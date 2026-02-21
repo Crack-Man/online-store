@@ -1,0 +1,44 @@
+upstream php-upstream {
+    server php:9000;
+}
+
+server {
+    listen ${API_PORT};
+    listen [::]:${API_PORT};
+
+    server_name ${API_DOMAIN};
+
+    root /srv/api/public;
+    index index.php index.html index.htm;
+    client_max_body_size 500M;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location /media/ {
+        autoindex on;
+        alias /srv/api/media/;
+        expires 1y;
+        access_log off;
+        add_header Cache-Control "public";
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        fastcgi_pass php-upstream;
+        fastcgi_index index.php;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 600;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    error_log  /var/log/nginx/api-error.log warn;
+    access_log /var/log/nginx/api-access.log;
+}

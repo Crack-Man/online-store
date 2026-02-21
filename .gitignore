@@ -1,0 +1,87 @@
+# Docker
+docker-compose.yml
+
+# Фронтенд
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Лог-файлы
+*.log
+storage/logs/*.log
+
+# Системные файлы
+Thumbs.db
+ehthumbs.db
+.idea/
+.vscode/
+.fleet/
+.nova/
+.zed/
+.env
+
+# Кэш и временные файлы
+*.swp
+*.tmp
+*.bak
+*.backup
+*.orig
+*.save
+
+# Результаты сборки
+dist/
+build/
+public/build
+public/hot
+public/storage
+storage/framework/*
+storage/pail
+bootstrap/cache/*
+storage/*.key
+
+# Применить преобразование переноса строк только к текстовым файлам
+* text=auto
+
+# Игнорировать файлы Zone.Identifier
+*Zone.Identifier
+
+# Laravel
+vendor/
+.phpactor.json
+.phpunit.result.cache
+.phpunit.cache
+Homestead.json
+Homestead.yaml
+
+# Media
+api/storage/app/media/*
+!api/storage/app/media/.gitignore
+
+# PHPStorm (IDE)
+.idea/
+workspace.xml
+
+# MacOS
+._*
+
+# Windows Thumbs
+Thumbs.db
+
+# Linux/Mac Trash
+.Trash-*
+
+# ИИ-агенты
+.qodo/
+api/.cursor/
+api/AGENTS.md
+api/boost.json
+
+# PostgreSQL
+docker/pgsql/data/
+docker/pgsql/dumps/
+
+# NGINX
+docker/certbot/
+docker/nginx/cache/

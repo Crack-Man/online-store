@@ -1,0 +1,16 @@
+/var/log/nginx/*.log {
+    daily
+    missingok
+    rotate 14
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    postrotate
+        # Отправляем nginx сигнал USR1 — он переоткрывает лог-файлы без перезапуска.
+        # kill -USR1 читает PID из файла, который nginx пишет сам при старте.
+        if [ -f /var/run/nginx.pid ]; then
+            kill -USR1 $(cat /var/run/nginx.pid)
+        fi
+    endscript
+}
