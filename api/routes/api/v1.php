@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\Catalog\BrandController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/health', function () {
-    return response()->json(['status' => 'ok']);
+Route::prefix('catalog')->group(function () {
+    Route::get('brands', [BrandController::class, 'index']);
 });

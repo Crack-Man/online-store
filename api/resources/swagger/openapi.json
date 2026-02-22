@@ -1,0 +1,66 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Online Store API",
+        "version": "v1"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Default"
+        }
+    ],
+    "paths": {
+        "/api/v1/catalog/brands": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Get all active brands",
+                "operationId": "775dc718b830ea35c5852523c78c3a35",
+                "responses": {
+                    "200": {
+                        "description": "List of brands",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BrandListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BrandListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Toyota"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "toyota"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Catalog",
+            "description": "Catalog"
+        }
+    ]
+}
