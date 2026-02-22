@@ -12,12 +12,12 @@ class BrandController extends Controller
 {
     #[OA\Get(
         path: '/api/v1/catalog/brands',
-        description: 'Get all active brands',
+        description: 'Получить все активные бренды',
         tags: ['Catalog'],
         responses: [
             new OA\Response(
                 response: 200,
-                description: 'List of brands',
+                description: 'Список брендов',
                 content: new OA\JsonContent(
                     type: 'array',
                     items: new OA\Items(ref: '#/components/schemas/BrandListResource')

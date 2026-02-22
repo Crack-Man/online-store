@@ -32,6 +32,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('measure')->nullable();
+            $table->string('type')->default('string');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

@@ -16,17 +16,63 @@
                 "tags": [
                     "Catalog"
                 ],
-                "description": "Get all active brands",
+                "description": "Получить все активные бренды",
                 "operationId": "775dc718b830ea35c5852523c78c3a35",
                 "responses": {
                     "200": {
-                        "description": "List of brands",
+                        "description": "Список брендов",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/components/schemas/BrandListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/catalog/{brandSlug}": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Получить все активные товары",
+                "operationId": "d65108d9b2fc5e416fde5e80dc33f67f",
+                "parameters": [
+                    {
+                        "name": "brandSlug",
+                        "in": "path",
+                        "description": "Слаг бренда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "apple"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Номер страницы",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список товаров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductListResource"
                                     }
                                 }
                             }
@@ -46,11 +92,32 @@
                     },
                     "name": {
                         "type": "string",
-                        "example": "Toyota"
+                        "example": "Apple"
                     },
                     "slug": {
                         "type": "string",
-                        "example": "toyota"
+                        "example": "apple"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Apple iPhone 17 Pro"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "apple-iphone-17-pro"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": 999.99
                     }
                 },
                 "type": "object"
