@@ -80,6 +80,42 @@
                     }
                 }
             }
+        },
+        "/api/v1/catalog/{brandSlug}/filters": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Получить все доступные фильтры по бренду",
+                "operationId": "9f6bf8a0d23afe1eeac2aaa2489cbdfc",
+                "parameters": [
+                    {
+                        "name": "brandSlug",
+                        "in": "path",
+                        "description": "Слаг бренда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "apple"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список фильтров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FilterListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -97,6 +133,33 @@
                     "slug": {
                         "type": "string",
                         "example": "apple"
+                    }
+                },
+                "type": "object"
+            },
+            "FilterListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Память (ОЗУ)"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "pamiat-ozu"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "type": "object"

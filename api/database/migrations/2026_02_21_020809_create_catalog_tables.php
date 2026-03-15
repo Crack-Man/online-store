@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->boolean('is_active')->default(true);
+            $table->json('filter_properties')->nullable();
             $table->timestamps();
         });
 
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('measure')->nullable();
             $table->string('type')->default('string');
+            $table->decimal('range_step', 10, 2)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

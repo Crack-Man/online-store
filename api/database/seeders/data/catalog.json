@@ -3,17 +3,17 @@
     {
       "name": "Память (ОЗУ)",
       "measure": "ГБ",
-      "type": "number"
+      "type": "string"
     },
     {
       "name": "Память (ПЗУ)",
       "measure": "ГБ",
-      "type": "number"
+      "type": "string"
     },
     {
       "name": "Дисплей",
       "measure": "\"",
-      "type": "string"
+      "type": "range"
     },
     {
       "name": "Цвет",
@@ -28,7 +28,7 @@
     {
       "name": "Процессор",
       "measure": "",
-      "type": "number"
+      "type": "string"
     }
   ],
   "catalog": [
@@ -46,11 +46,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 256
+                  "value": "256"
                 },
                 {
                   "name": "Дисплей",
@@ -85,11 +85,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 256
+                  "value": "256"
                 },
                 {
                   "name": "Дисплей",
@@ -124,11 +124,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 256
+                  "value": "256"
                 },
                 {
                   "name": "Дисплей",
@@ -165,11 +165,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 512
+                  "value": "512"
                 },
                 {
                   "name": "Дисплей",
@@ -204,11 +204,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 512
+                  "value": "512"
                 },
                 {
                   "name": "Дисплей",
@@ -243,11 +243,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 512
+                  "value": "512"
                 },
                 {
                   "name": "Дисплей",
@@ -284,11 +284,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 1024
+                  "value": "1024"
                 },
                 {
                   "name": "Дисплей",
@@ -323,11 +323,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 1024
+                  "value": "1024"
                 },
                 {
                   "name": "Дисплей",
@@ -362,11 +362,11 @@
               "properties": [
                 {
                   "name": "Память (ОЗУ)",
-                  "value": 12
+                  "value": "12"
                 },
                 {
                   "name": "Память (ПЗУ)",
-                  "value": 1024
+                  "value": "1024"
                 },
                 {
                   "name": "Дисплей",

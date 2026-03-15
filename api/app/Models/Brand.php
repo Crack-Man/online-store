@@ -15,6 +15,11 @@ class Brand extends Model
     protected $fillable = [
         'name',
         'slug',
+        'filter_properties',
+    ];
+
+    protected $casts = [
+        'filter_properties' => 'array',
     ];
 
     public function productGroups(): HasMany
