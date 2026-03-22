@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Enums\PropertyType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -17,6 +18,10 @@ class Property extends Model
         'measure',
         'type',
         'is_active',
+    ];
+
+    protected $casts = [
+        'type' => PropertyType::class,
     ];
 
     public function scopeActive($query): Builder

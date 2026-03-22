@@ -69,24 +69,24 @@ class CatalogSeeder extends Seeder
                         continue;
                     }
 
-                    $product = Product::updateOrCreate(
+                    Product::updateOrCreate(
                         ['product_group_id' => $group->id, 'name' => $productName],
                         [
                             'product_group_id' => $group->id,
                             'name' => $productName,
                             'description' => $productData['description'] ?? null,
                             'price' => $productData['price'] ?? 0,
-                            'properties' => $productData['properties'] ?? null,
+                            'properties' => array_map(function ($property) {
+                                $propertyModel = Property::where('name', $property['name'])->first();
+                                return [
+                                    'id' => $propertyModel->id,
+                                    'value' => $property['value']
+                                ];
+                            }, $productData['properties'] ?? []),
                         ]
                     );
-
-                    unset($product);
                 }
-
-                unset($group);
             }
-
-            unset($brand);
         }
     }
 }

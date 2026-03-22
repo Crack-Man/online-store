@@ -2,6 +2,7 @@
 
 namespace App\Services\Catalog;
 
+use App\Support\Enums\PropertyType;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Property;
@@ -17,6 +18,45 @@ class ProductService
             $query->whereHas('productGroup.brand', function ($query) use ($brand) {
                 $query->where('id', $brand->id);
             });
+        }
+
+        foreach ($filters as $filter) {
+            $property = Property::where('slug', $filter['property_slug'])->first();
+
+            if (!$property) {
+                continue;
+            }
+
+
+            if ($property->type === PropertyType::Range) {
+                if (isset($filter['min']) || isset($filter['max'])) {
+                    $query->whereExists(function ($subQuery) use ($property, $filter) {
+                        $subQuery->selectRaw('1')
+                            ->fromRaw('jsonb_array_elements(products.properties) as property_item')
+                            ->whereRaw("(property_item->>'id')::int = ?", [$property->id])
+                            ->whereRaw("(property_item->>'value') ~ '^[+-]?(?:\\d+(?:\\.\\d+)?|\\.\\d+)$'");
+
+                        if (isset($filter['min'])) {
+                            $subQuery->whereRaw("(property_item->>'value')::numeric >= ?::numeric", [$filter['min']]);
+                        }
+
+                        if (isset($filter['max'])) {
+                            $subQuery->whereRaw("(property_item->>'value')::numeric <= ?::numeric", [$filter['max']]);
+                        }
+                    });
+                }
+
+                continue;
+            }
+
+            else if ($property->type === PropertyType::String && isset($filter['value'])) {
+                $query->whereExists(function ($subQuery) use ($property, $filter) {
+                    $subQuery->selectRaw('1')
+                        ->fromRaw('jsonb_array_elements(products.properties) as property_item')
+                        ->whereRaw("(property_item->>'id')::int = ?", [$property->id])
+                        ->whereRaw("property_item->>'value' = ?", [(string) $filter['value']]);
+                });
+            }
         }
 
         return $query;
@@ -107,13 +147,16 @@ class ProductService
 
         foreach ($properties as $property) {
             $rawValues = $this->normalizePropertyValues($valuesByName[$property->name] ?? []);
+            $propertyType = $property->type instanceof PropertyType
+                ? $property->type->value
+                : (string) $property->type;
 
             $data[] = [
                 'id' => $property->id,
                 'name' => $property->name,
                 'slug' => $property->slug,
-                'type' => $property->type,
-                'values' => $this->formatPropertyValues($property->type, $rawValues),
+                'type' => $propertyType,
+                'values' => $this->formatPropertyValues($propertyType, $rawValues),
             ];
         }
 
@@ -144,7 +187,7 @@ class ProductService
      */
     private function formatPropertyValues(string $type, array $rawValues): array
     {
-        if ($type === "range") {
+        if ($type === PropertyType::Range->value) {
             return $this->getNumericRangeValues($rawValues);
         }
 

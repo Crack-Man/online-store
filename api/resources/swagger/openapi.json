@@ -36,12 +36,12 @@
             }
         },
         "/api/v1/catalog/{brandSlug}": {
-            "get": {
+            "post": {
                 "tags": [
                     "Catalog"
                 ],
                 "description": "Получить все активные товары",
-                "operationId": "d65108d9b2fc5e416fde5e80dc33f67f",
+                "operationId": "4f219ae8ff207d65e2688666b936d8ae",
                 "parameters": [
                     {
                         "name": "brandSlug",
@@ -64,6 +64,55 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "filters": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "property_slug": {
+                                                    "type": "string",
+                                                    "example": "pamiat-ozu"
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "black"
+                                                },
+                                                "min": {
+                                                    "type": "number",
+                                                    "example": 8
+                                                },
+                                                "max": {
+                                                    "type": "number",
+                                                    "example": 16
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "filters": [
+                                    {
+                                        "property_slug": "pamiat-pzu",
+                                        "value": "512"
+                                    },
+                                    {
+                                        "property_slug": "displei",
+                                        "min": 6.1,
+                                        "max": 6.1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Список товаров",
