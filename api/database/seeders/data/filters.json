@@ -1,0 +1,26 @@
+{
+  "filters": [
+    {
+      "brand": "Apple",
+      "properties": [
+        "pamiat-ozu",
+        "pamiat-pzu",
+        "displei",
+        "cvet",
+        "sviaz",
+        "processor"
+      ]
+    },
+    {
+      "brand": "Samsung",
+      "properties": [
+        "displei",
+        "cvet",
+        "sviaz",
+        "pamiat-ozu",
+        "pamiat-pzu",
+        "processor"
+      ]
+    }
+  ]
+}

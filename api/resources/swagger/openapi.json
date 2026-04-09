@@ -1,0 +1,245 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Online Store API",
+        "version": "v1"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Default"
+        }
+    ],
+    "paths": {
+        "/api/v1/catalog/brands": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Получить все активные бренды",
+                "operationId": "775dc718b830ea35c5852523c78c3a35",
+                "responses": {
+                    "200": {
+                        "description": "Список брендов",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BrandListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/catalog/{brandSlug}": {
+            "post": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Получить все активные товары",
+                "operationId": "4f219ae8ff207d65e2688666b936d8ae",
+                "parameters": [
+                    {
+                        "name": "brandSlug",
+                        "in": "path",
+                        "description": "Слаг бренда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "apple"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Номер страницы",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "filters": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "property_slug": {
+                                                    "type": "string",
+                                                    "example": "pamiat-ozu"
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "black"
+                                                },
+                                                "min": {
+                                                    "type": "number",
+                                                    "example": 8
+                                                },
+                                                "max": {
+                                                    "type": "number",
+                                                    "example": 16
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "filters": [
+                                    {
+                                        "property_slug": "pamiat-pzu",
+                                        "value": "512"
+                                    },
+                                    {
+                                        "property_slug": "displei",
+                                        "min": 6.1,
+                                        "max": 6.1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Список товаров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ProductListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/catalog/{brandSlug}/filters": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Получить все доступные фильтры по бренду",
+                "operationId": "9f6bf8a0d23afe1eeac2aaa2489cbdfc",
+                "parameters": [
+                    {
+                        "name": "brandSlug",
+                        "in": "path",
+                        "description": "Слаг бренда",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "apple"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список фильтров",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/FilterListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BrandListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Apple"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "apple"
+                    }
+                },
+                "type": "object"
+            },
+            "FilterListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Память (ОЗУ)"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "pamiat-ozu"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ProductListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Apple iPhone 17 Pro"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "apple-iphone-17-pro"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": 999.99
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Catalog",
+            "description": "Catalog"
+        }
+    ]
+}

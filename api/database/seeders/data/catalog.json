@@ -1,0 +1,410 @@
+{
+  "properties": [
+    {
+      "name": "Память (ОЗУ)",
+      "measure": "ГБ",
+      "type": "string"
+    },
+    {
+      "name": "Память (ПЗУ)",
+      "measure": "ГБ",
+      "type": "string"
+    },
+    {
+      "name": "Дисплей",
+      "measure": "\"",
+      "type": "range"
+    },
+    {
+      "name": "Цвет",
+      "measure": "",
+      "type": "string"
+    },
+    {
+      "name": "Связь",
+      "measure": "",
+      "type": "string"
+    },
+    {
+      "name": "Процессор",
+      "measure": "",
+      "type": "string"
+    }
+  ],
+  "catalog": [
+    {
+      "brand_name": "Apple",
+      "product_groups": [
+        {
+          "name": "iPhone 17 Pro",
+          "products": [
+            // 256 ГБ
+            {
+              "name":"iPhone 17 Pro | 256 ГБ | Серебристый",
+              "price": 130000,
+              "description": "iPhone 17 Pro с 256 ГБ памяти и серебристым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "256"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Серебристый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 256 ГБ | Оранжевый",
+              "price": 130000,
+              "description": "iPhone 17 Pro с 256 ГБ памяти и оранжевым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "256"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Оранжевый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 256 ГБ | Синий",
+              "price": 130000,
+              "description": "iPhone 17 Pro с 256 ГБ памяти и синим корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "256"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Синий"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+
+            // 512 ГБ
+            {
+              "name":"iPhone 17 Pro | 512 ГБ | Серебристый",
+              "price": 150000,
+              "description": "iPhone 17 Pro с 512 ГБ памяти и серебристым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "512"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Серебристый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 512 ГБ | Оранжевый",
+              "price": 150000,
+              "description": "iPhone 17 Pro с 512 ГБ памяти и оранжевым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "512"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Оранжевый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 512 ГБ | Синий",
+              "price": 150000,
+              "description": "iPhone 17 Pro с 512 ГБ памяти и синим корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "512"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Синий"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+
+            // 1024 ГБ
+            {
+              "name":"iPhone 17 Pro | 1024 ГБ | Серебристый",
+              "price": 180000,
+              "description": "iPhone 17 Pro с 1024 ГБ памяти и серебристым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "1024"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Серебристый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 1024 ГБ | Оранжевый",
+              "price": 180000,
+              "description": "iPhone 17 Pro с 1024 ГБ памяти и оранжевым корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "1024"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Оранжевый"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            },
+            {
+              "name":"iPhone 17 Pro | 1024 ГБ | Синий",
+              "price": 180000,
+              "description": "iPhone 17 Pro с 1024 ГБ памяти и синим корпусом",
+              "properties": [
+                {
+                  "name": "Память (ОЗУ)",
+                  "value": "12"
+                },
+                {
+                  "name": "Память (ПЗУ)",
+                  "value": "1024"
+                },
+                {
+                  "name": "Дисплей",
+                  "value": "6.1"
+                },
+                {
+                  "name": "Цвет",
+                  "value": "Синий"
+                },
+                {
+                  "name": "Связь",
+                  "value": "5G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "4G"
+                },
+                {
+                  "name": "Связь",
+                  "value": "3G"
+                },
+                {
+                  "name": "Процессор",
+                  "value": "Apple A19 Pro, 6"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand_name": "Samsung",
+      "product_groups": [
+        {
+          "name": "Galaxy S"
+        }
+      ]
+    }
+  ]
+}
