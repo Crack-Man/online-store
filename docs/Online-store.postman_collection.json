@@ -1,0 +1,182 @@
+{
+  "info": {
+    "_postman_id": "07f98163-652a-4e77-901f-6a2bc7a0eab1",
+    "name": "Online-store",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25687423"
+  },
+  "item": [
+    {
+      "name": "Personal",
+      "item": [
+        {
+          "name": "Register user",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.sendRequest({\r",
+                  "    url: pm.collectionVariables.get(\"API_URL\") + \"/sanctum/csrf-cookie\",\r",
+                  "    method: \"GET\"\r",
+                  "}, function (err, res) {\r",
+                  "    if (!err) {\r",
+                  "        console.log(\"Full response:\", res);\r",
+                  "        console.log(\"Headers:\", res.headers.all());\r",
+                  "\r",
+                  "        let cookies = res.headers.filter(h => h.key.toLowerCase() === \"set-cookie\");\r",
+                  "        console.log(\"Set-Cookie headers:\", cookies);\r",
+                  "\r",
+                  "        let xsrfCookie = cookies.find(c => c.value.includes(\"XSRF-TOKEN\"));\r",
+                  "        if (xsrfCookie) {\r",
+                  "            let token = xsrfCookie.value.split(';')[0].split('=')[1];\r",
+                  "            let decodedToken = decodeURIComponent(token); // Декодируем URL-кодировку\r",
+                  "            console.log(\"Extracted XSRF-TOKEN:\", decodedToken);\r",
+                  "            pm.collectionVariables.set(\"XSRF-TOKEN\", decodedToken);\r",
+                  "        } else {\r",
+                  "            console.log(\"❌ XSRF-TOKEN не найден в заголовках Set-Cookie\");\r",
+                  "        }\r",
+                  "    } else {\r",
+                  "        console.log(\"❌ Ошибка при получении CSRF cookie:\", err);\r",
+                  "    }\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{XSRF-TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Антон\",\r\n    \"email\": \"test@mail.ru\",\r\n    \"password\": \"my_Password!1725\",\r\n    \"gender\": \"male\" // \"female\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{API_URL}}/api/v2/auth/sign-up",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "auth",
+                "sign-up"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get profile",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "{{XSRF-TOKEN}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{API_URL}}/api/v2/profile/me",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "api",
+                "v2",
+                "profile",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "item": [
+        {
+          "name": "Get csrf token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{API_URL}}/sanctum/csrf-cookie",
+              "host": [
+                "{{API_URL}}"
+              ],
+              "path": [
+                "sanctum",
+                "csrf-cookie"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "API_URL",
+      "value": ""
+    },
+    {
+      "key": "XSRF-TOKEN",
+      "value": ""
+    }
+  ]
+}
