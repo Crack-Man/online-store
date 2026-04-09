@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         Route::prefix('api/v1')
             ->middleware('api')
             ->group(base_path('routes/api/v1.php'));
+
+        Route::prefix('api/v2')
+            ->middleware('api')
+            ->group(base_path('routes/api/v2.php'));
     }
 
     /**
