@@ -2,10 +2,10 @@
 
 namespace App\Services\Catalog;
 
-use App\Support\Enums\PropertyType;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Property;
+use App\Support\Enums\PropertyType;
 use Illuminate\Support\Facades\DB;
 
 class ProductService
@@ -23,10 +23,9 @@ class ProductService
         foreach ($filters as $filter) {
             $property = Property::where('slug', $filter['property_slug'])->first();
 
-            if (!$property) {
+            if (! $property) {
                 continue;
             }
-
 
             if ($property->type === PropertyType::Range) {
                 if (isset($filter['min']) || isset($filter['max'])) {
@@ -47,9 +46,7 @@ class ProductService
                 }
 
                 continue;
-            }
-
-            else if ($property->type === PropertyType::String && isset($filter['value'])) {
+            } elseif ($property->type === PropertyType::String && isset($filter['value'])) {
                 $query->whereExists(function ($subQuery) use ($property, $filter) {
                     $subQuery->selectRaw('1')
                         ->fromRaw('jsonb_array_elements(products.properties) as property_item')
@@ -66,20 +63,20 @@ class ProductService
     {
         $propertyIds = $brand->filter_properties ?? [];
 
-        if (!is_array($propertyIds) || $propertyIds === []) {
+        if (! is_array($propertyIds) || $propertyIds === []) {
             return [];
         }
 
         $properties = $this->getOrderedProperties($propertyIds);
-        $valuesByName = $this->getAggregatedPropertyValues($brand);
+        $valuesById = $this->getAggregatedPropertyValues($brand);
 
-        return $this->buildFilterPayload($properties, $valuesByName);
+        return $this->buildFilterPayload($properties, $valuesById);
     }
 
     /**
      * Возвращает свойства в том порядке, в котором они перечислены в filter_properties бренда.
      *
-     * @param array<int> $propertyIds
+     * @param  array<int>  $propertyIds
      */
     private function getOrderedProperties(array $propertyIds)
     {
@@ -93,7 +90,7 @@ class ProductService
 
         return Property::whereIn('id', $propertyIds)
             ->active()
-            ->orderByRaw('CASE id ' . implode(' ', $caseParts) . ' ELSE 999999 END', $orderBindings)
+            ->orderByRaw('CASE id '.implode(' ', $caseParts).' ELSE 999999 END', $orderBindings)
             ->get();
     }
 
@@ -101,16 +98,16 @@ class ProductService
      * Собирает все значения свойств из JSON-поля products.properties для товаров выбранного бренда.
      *
      * На стороне PostgreSQL разворачиваем JSON-массив через jsonb_array_elements,
-     * затем группируем значения по имени свойства.
+     * затем группируем значения по идентификатору свойства.
      *
-     * @return array<string, array<int, string>>
+     * @return array<int, array<int, string>>
      */
     private function getAggregatedPropertyValues(Brand $brand): array
     {
         $rows = DB::select(
             "SELECT
-                elem->>'name' AS property_name,
-                array_agg(DISTINCT elem->>'value') AS all_values
+                (elem->>'id')::BIGINT AS property_id,
+                jsonb_agg(DISTINCT elem->>'value') AS all_values
             FROM products
             CROSS JOIN LATERAL jsonb_array_elements(properties) AS elem
             INNER JOIN product_groups ON product_groups.id = products.product_group_id
@@ -119,18 +116,19 @@ class ProductService
               AND products.price > 0
               AND product_groups.is_active = TRUE
               AND products.properties IS NOT NULL
-            GROUP BY elem->>'name'",
+              AND jsonb_exists(elem, 'id')
+            GROUP BY elem->>'id'",
             [$brand->id]
         );
 
-        $valuesByName = [];
+        $valuesById = [];
 
         foreach ($rows as $row) {
-            $raw = trim((string) $row->all_values, '{}');
-            $valuesByName[$row->property_name] = $raw !== '' ? str_getcsv($raw) : [];
+            $values = json_decode((string) $row->all_values, true);
+            $valuesById[(int) $row->property_id] = is_array($values) ? $values : [];
         }
 
-        return $valuesByName;
+        return $valuesById;
     }
 
     /**
@@ -139,14 +137,14 @@ class ProductService
      * Для числовых фильтров в values кладём только диапазон: [min, max].
      * Для строковых фильтров кладём список уникальных значений.
      *
-     * @param array<string, array<int, string>> $valuesByName
+     * @param  array<int, array<int, string>>  $valuesById
      */
-    private function buildFilterPayload($properties, array $valuesByName): array
+    private function buildFilterPayload($properties, array $valuesById): array
     {
         $data = [];
 
         foreach ($properties as $property) {
-            $rawValues = $this->normalizePropertyValues($valuesByName[$property->name] ?? []);
+            $rawValues = $this->normalizePropertyValues($valuesById[$property->id] ?? []);
             $propertyType = $property->type instanceof PropertyType
                 ? $property->type->value
                 : (string) $property->type;
@@ -166,7 +164,7 @@ class ProductService
     /**
      * Убирает пустые и служебные значения, которые не должны попасть в фильтры.
      *
-     * @param array<int, mixed> $values
+     * @param  array<int, mixed>  $values
      * @return array<int, mixed>
      */
     private function normalizePropertyValues(array $values): array
@@ -182,7 +180,7 @@ class ProductService
     /**
      * Приводит значения свойства к формату ответа API.
      *
-     * @param array<int, mixed> $rawValues
+     * @param  array<int, mixed>  $rawValues
      * @return array<int, float|string>
      */
     private function formatPropertyValues(string $type, array $rawValues): array
@@ -206,7 +204,7 @@ class ProductService
     /**
      * Возвращает диапазон числовых значений в формате [min, max].
      *
-     * @param array<int, mixed> $rawValues
+     * @param  array<int, mixed>  $rawValues
      * @return array<int, float>
      */
     private function getNumericRangeValues(array $rawValues): array

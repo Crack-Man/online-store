@@ -20,9 +20,9 @@ docker compose up -d
 ```bash
 docker compose exec php composer install
 ```
-5. Выполнить миграции:
+5. Выполнить миграции & сидеры:
 ```bash
-docker compose exec php php artisan migrate
+docker compose exec php php artisan migrate --seed
 ```
 6. API доступен по адресу `http://localhost:8080`
 

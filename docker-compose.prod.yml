@@ -78,7 +78,7 @@ services:
             POSTGRES_PASSWORD: '${DB_PASSWORD}'
         volumes:
             - ./docker/db/dumps:/srv/dumps
-            - ./docker/db/data:/var/lib/postgresql/data:rw
+            - pgsql_data:/var/lib/postgresql/data:rw
         networks:
             - backend
 
@@ -105,3 +105,6 @@ services:
 networks:
     backend:
         driver: bridge
+
+volumes:
+    pgsql_data:
