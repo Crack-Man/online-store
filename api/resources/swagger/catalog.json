@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Online Store API",
+        "title": "Online Store Catalog API",
         "version": "v1"
     },
     "servers": [
@@ -14,7 +14,7 @@
         "/api/v1/catalog/brands": {
             "get": {
                 "tags": [
-                    "Catalog"
+                    "Каталог"
                 ],
                 "description": "Получить все активные бренды",
                 "operationId": "775dc718b830ea35c5852523c78c3a35",
@@ -38,7 +38,7 @@
         "/api/v1/catalog/{brandSlug}": {
             "post": {
                 "tags": [
-                    "Catalog"
+                    "Каталог"
                 ],
                 "description": "Получить все активные товары",
                 "operationId": "4f219ae8ff207d65e2688666b936d8ae",
@@ -133,7 +133,7 @@
         "/api/v1/catalog/{brandSlug}/filters": {
             "get": {
                 "tags": [
-                    "Catalog"
+                    "Каталог"
                 ],
                 "description": "Получить все доступные фильтры по бренду",
                 "operationId": "9f6bf8a0d23afe1eeac2aaa2489cbdfc",
@@ -162,6 +162,47 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/v1/catalog/products/{slug}": {
+            "get": {
+                "tags": [
+                    "Каталог"
+                ],
+                "description": "Получить активный товар с разобранными характеристиками",
+                "operationId": "3265b33ff017a99af99c4621ba3b6987",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "Слаг товара",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "iphone-17-pro-512-gb-serebristyi"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Детальная информация о товаре",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ProductDetailResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден"
                     }
                 }
             }
@@ -204,11 +245,74 @@
                         "type": "string",
                         "example": "string"
                     },
+                    "measure": {
+                        "type": "string",
+                        "example": "ГБ",
+                        "nullable": true
+                    },
                     "values": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "ProductDetailResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Apple iPhone 17 Pro"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "apple-iphone-17-pro"
+                    },
+                    "price": {
+                        "type": "number",
+                        "example": 999.99
+                    },
+                    "properties": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Память (ОЗУ)"
+                                },
+                                "slug": {
+                                    "type": "string",
+                                    "example": "pamiat-ozu"
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "example": "string"
+                                },
+                                "value": {
+                                    "type": "string",
+                                    "example": "12"
+                                },
+                                "measure": {
+                                    "type": "string",
+                                    "example": "ГБ",
+                                    "nullable": true
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "The latest Apple iPhone with advanced features and sleek design."
                     }
                 },
                 "type": "object"
@@ -238,8 +342,8 @@
     },
     "tags": [
         {
-            "name": "Catalog",
-            "description": "Catalog"
+            "name": "Каталог",
+            "description": "Каталог"
         }
     ]
 }

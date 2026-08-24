@@ -52,7 +52,8 @@
             "npm run build"
         ],
         "swagger:generate": [
-            "@php vendor/bin/openapi --output resources/swagger/openapi.json app routes"
+            "@php vendor/bin/openapi --output resources/swagger/catalog.json app/OpenApi/Catalog.php app/Http/Controllers/Catalog app/Http/Resources/Catalog",
+            "@php vendor/bin/openapi --output resources/swagger/personal.json app/OpenApi/Personal.php app/Http/Controllers/Personal app/Http/Resources/Personal app/OpenApi/Sanctum.php"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

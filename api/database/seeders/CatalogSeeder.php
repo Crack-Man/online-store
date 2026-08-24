@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\Property;
+use App\Models\Unit;
 use Illuminate\Database\Seeder;
 use RuntimeException;
 
@@ -34,13 +35,24 @@ class CatalogSeeder extends Seeder
         $properties = $data['properties'] ?? [];
 
         foreach ($properties as $property) {
-            Property::updateOrCreate(['name' => $property['name']], $property);
+            $measure = $property['measure'] ?? null;
+            $unit = is_string($measure) && $measure !== ''
+                ? Unit::firstOrCreate(['symbol' => $measure], ['name' => $measure])
+                : null;
+
+            Property::updateOrCreate(
+                ['name' => $property['name']],
+                [
+                    'unit_id' => $unit?->id,
+                    'type' => $property['type'] ?? 'string',
+                ]
+            );
         }
 
         foreach ($catalog as $brandData) {
             $brandName = $brandData['brand_name'] ?? null;
 
-            if (!is_string($brandName) || $brandName === '') {
+            if (! is_string($brandName) || $brandName === '') {
                 continue;
             }
 
@@ -51,7 +63,7 @@ class CatalogSeeder extends Seeder
             foreach ($groups as $groupData) {
                 $groupName = $groupData['name'] ?? null;
 
-                if (!is_string($groupName) || $groupName === '') {
+                if (! is_string($groupName) || $groupName === '') {
                     continue;
                 }
 
@@ -65,7 +77,7 @@ class CatalogSeeder extends Seeder
                 foreach ($products as $productData) {
                     $productName = $productData['name'] ?? null;
 
-                    if (!is_string($productName) || $productName === '') {
+                    if (! is_string($productName) || $productName === '') {
                         continue;
                     }
 
@@ -78,9 +90,10 @@ class CatalogSeeder extends Seeder
                             'price' => $productData['price'] ?? 0,
                             'properties' => array_map(function ($property) {
                                 $propertyModel = Property::where('name', $property['name'])->first();
+
                                 return [
                                     'id' => $propertyModel->id,
-                                    'value' => $property['value']
+                                    'value' => $property['value'],
                                 ];
                             }, $productData['properties'] ?? []),
                         ]

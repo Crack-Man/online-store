@@ -37,10 +37,7 @@ class Product extends Model
         return $query->where('is_active', true)
             ->where('price', '>', 0)
             ->whereHas('productGroup', function ($query) {
-                $query->where('is_active', true)
-                    ->whereHas('brand', function ($query) {
-                        $query->where('is_active', true);
-                    });
+                $query->active();
             });
     }
 

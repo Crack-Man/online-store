@@ -90,6 +90,7 @@ class ProductService
 
         return Property::whereIn('id', $propertyIds)
             ->active()
+            ->with('unit')
             ->orderByRaw('CASE id '.implode(' ', $caseParts).' ELSE 999999 END', $orderBindings)
             ->get();
     }
@@ -154,6 +155,7 @@ class ProductService
                 'name' => $property->name,
                 'slug' => $property->slug,
                 'type' => $propertyType,
+                'measure' => $property->unit?->symbol,
                 'values' => $this->formatPropertyValues($propertyType, $rawValues),
             ];
         }

@@ -10,4 +10,6 @@ Route::prefix('catalog')->group(function () {
     Route::post('{slug}', [ProductController::class, 'index']);
 
     Route::get('{slug}/filters', [ProductController::class, 'getFilters']);
+
+    Route::get('products/{slug}', [ProductController::class, 'show']);
 });

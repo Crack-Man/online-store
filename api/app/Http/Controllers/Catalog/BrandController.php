@@ -13,7 +13,7 @@ class BrandController extends Controller
     #[OA\Get(
         path: '/api/v1/catalog/brands',
         description: 'Получить все активные бренды',
-        tags: ['Catalog'],
+        tags: ['Каталог'],
         responses: [
             new OA\Response(
                 response: 200,
@@ -22,13 +22,13 @@ class BrandController extends Controller
                     type: 'array',
                     items: new OA\Items(ref: '#/components/schemas/BrandListResource')
                 )
-            )
+            ),
         ]
     )]
     public function index(): AnonymousResourceCollection
     {
         $brands = Brand::active()->get();
-        
+
         return BrandListResource::collection($brands);
     }
 }

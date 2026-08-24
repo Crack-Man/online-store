@@ -15,7 +15,7 @@ class Property extends Model
     protected $fillable = [
         'name',
         'slug',
-        'measure',
+        'unit_id',
         'type',
         'is_active',
     ];
@@ -24,11 +24,16 @@ class Property extends Model
         'type' => PropertyType::class,
     ];
 
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
     public function scopeActive($query): Builder
     {
         return $query->where('is_active', true);
     }
-    
+
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()

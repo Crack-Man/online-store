@@ -29,5 +29,7 @@ docker compose exec php php artisan migrate --seed
 ## Swagger UI
 Документация API доступна по адресу `http://localhost:8080/swagger`
 
-## Postman
-Коллекция Postman доступна в файле `docs/Online-store.postman_collection.json`
+Обновить документацию:
+```bash
+docker compose exec php composer swagger:generate
+```

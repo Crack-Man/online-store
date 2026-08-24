@@ -19,13 +19,14 @@ return [
              * The versions of the swagger file. The key is the version name and the value is the path to the file.
              */
             'versions' => [
-                'v1' => resource_path('swagger/openapi.json'),
+                'Каталог' => resource_path('swagger/catalog.json'),
+                'Личный кабинет' => resource_path('swagger/personal.json'),
             ],
 
             /*
              * The default version that is loaded when the route is accessed.
              */
-            'default' => 'v1',
+            'default' => 'Каталог',
 
             /*
              * The middleware that is applied to the route.

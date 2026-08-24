@@ -1,0 +1,250 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Online Store Personal API",
+        "version": "v2"
+    },
+    "servers": [
+        {
+            "url": "/",
+            "description": "Default"
+        }
+    ],
+    "paths": {
+        "/api/v2/auth/sign-up": {
+            "post": {
+                "tags": [
+                    "Личный кабинет"
+                ],
+                "summary": "Register user",
+                "description": "Creates a user and starts a browser session. Swagger UI automatically obtains a CSRF cookie before sending this request.",
+                "operationId": "93c8beacb3a41738cd70fe75ba135d53",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "gender"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "maxLength": 255,
+                                        "example": "Антон"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@mail.ru"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "minLength": 8,
+                                        "example": "my_Password!1725"
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "male",
+                                            "female"
+                                        ],
+                                        "example": "male"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User registered successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Антон"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "format": "email",
+                                                    "example": "test@mail.ru"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "format": "password",
+                                                    "example": "my_Password!1725"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "male",
+                                                        "female"
+                                                    ],
+                                                    "example": "male"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "419": {
+                        "description": "CSRF token mismatch"
+                    },
+                    "422": {
+                        "description": "Validation failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/profile/me": {
+            "get": {
+                "tags": [
+                    "Личный кабинет"
+                ],
+                "summary": "Get profile",
+                "description": "Returns the profile for the user authenticated by the browser session cookie.",
+                "operationId": "0e3e46202185d6a49721f079d4761026",
+                "responses": {
+                    "200": {
+                        "description": "Current user profile",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/ProfileResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/sanctum/csrf-cookie": {
+            "get": {
+                "tags": [
+                    "Session"
+                ],
+                "summary": "Get CSRF cookie",
+                "description": "Initializes the browser session and sets the XSRF-TOKEN cookie. Swagger UI calls this endpoint automatically before registration.",
+                "operationId": "e90643110d52bc960357ffffe185e205",
+                "responses": {
+                    "204": {
+                        "description": "CSRF cookie initialized",
+                        "headers": {
+                            "Set-Cookie": {
+                                "description": "Contains the XSRF-TOKEN and session cookies.",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProfileResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Антон"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "test@mail.ru"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Личный кабинет",
+            "description": "Регистрация и профиль"
+        },
+        {
+            "name": "Session",
+            "description": "Browser session and CSRF protection"
+        }
+    ]
+}

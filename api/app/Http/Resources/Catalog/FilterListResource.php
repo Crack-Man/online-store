@@ -4,6 +4,7 @@ namespace App\Http\Resources\Catalog;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use OpenApi\Attributes as OA;
+
 #[OA\Schema(
     schema: 'FilterListResource',
     type: 'object',
@@ -12,6 +13,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: 'name', type: 'string', example: 'Память (ОЗУ)'),
         new OA\Property(property: 'slug', type: 'string', example: 'pamiat-ozu'),
         new OA\Property(property: 'type', type: 'string', example: 'string'),
+        new OA\Property(property: 'measure', type: 'string', nullable: true, example: 'ГБ'),
         new OA\Property(property: 'values', type: 'array', items: new OA\Items(type: 'string')),
     ]
 )]
@@ -24,6 +26,7 @@ class FilterListResource extends JsonResource
             'name' => $this['name'] ?? $this->name,
             'slug' => $this['slug'] ?? $this->slug,
             'type' => $this['type'] ?? $this->type,
+            'measure' => $this['measure'] ?? null,
             'values' => $this['values'] ?? [],
         ];
     }

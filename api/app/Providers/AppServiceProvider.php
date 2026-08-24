@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Carbon\Carbon::setLocale(config('app.locale'));
+
+        View::prependNamespace('swagger-ui', resource_path('views/swagger-ui'));
 
         Route::prefix('api/v1')
             ->middleware('api')
@@ -57,4 +60,3 @@ class AppServiceProvider extends ServiceProvider
         );
     }
 }
-
